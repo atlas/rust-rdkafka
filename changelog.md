@@ -4,7 +4,9 @@ See also the [rdkafka-sys changelog](rdkafka-sys/changelog.md).
 
 ## Unreleased
 
-None
+* Add `BaseConsumer::from_native_config`, which creates a consumer from a
+  native configuration the caller prepared, so librdkafka options this crate
+  does not wrap (for example `rd_kafka_conf_set_resolve_cb`) can be set first.
 
 ## 0.39.0 (2026-01-25)
 

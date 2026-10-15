@@ -58,6 +58,21 @@ impl<C> BaseConsumer<C>
 where
     C: ConsumerContext,
 {
+    /// Creates a consumer from a native configuration the caller made from `config` with
+    /// [`ClientConfig::create_native_config`].
+    ///
+    /// This lets callers set librdkafka options this crate does not wrap, such as
+    /// `rd_kafka_conf_set_resolve_cb`, on the native configuration before the client starts.
+    /// The configuration's opaque pointer is set to the consumer's context, as for
+    /// [`FromClientConfigAndContext::from_config_and_context`].
+    pub fn from_native_config(
+        config: &ClientConfig,
+        native_config: NativeClientConfig,
+        context: C,
+    ) -> KafkaResult<BaseConsumer<C>> {
+        BaseConsumer::new(config, native_config, context)
+    }
+
     pub(crate) fn new(
         config: &ClientConfig,
         native_config: NativeClientConfig,
